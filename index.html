@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar CEP</title>
+</head>
+<body>
+    <button onclick="consultarCep()">Consultar</button> <!--onclick para criar um botão-->
+
+    <div>
+        <label for="">Bairro: </label>
+        <h4 id="bairro"></h4>
+    </div>
+
+<!--Script pode ser feito dentro do head ou no final do body, mais geralmente é feito ao final do body-->
+<!--"new" comando para criar um objeto, um construtor-->
+    <script type="application/javascript"> 
+        var cep = document.getElementById('bairro')
+        function consultarCep(){
+            var xhr = new XMLHttpRequest();  //instanciando um obj, criando
+
+            xhr.open('GET','algum link');  //xhr agora se torna um objeto com recursos e métodos
+            //essa linha abre uma requisição de algum serviço
+            
+            xhr.send(null);  //fica como null pq n vai enviar nada, só quer receber dados
+
+            xhr.onreadystatechange = function(){ //criou uma função anônima
+                if(xhr.readyState === 4){ //readyState indica se a função esta ok, se conseguiu conexão
+                    var res = JSON.parse(xhr.responseText); //resonseText indica se o texto está la dentro, "parse" serve para transformar o texto em um obj jason
+                    console.log(res);
+                }
+
+            };  // onreadystatechange (estou pronto), esse método verifica se ouve alguma alteração de estado
+        }
+    
+    </script>
+</body>
+</html>
