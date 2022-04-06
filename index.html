@@ -4,24 +4,53 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
     <title>Consultar CEP</title>
 </head>
 <body>
     <button onclick="consultarCep()">Consultar</button> <!--onclick para criar um botão-->
 
-    <div>
-        <label for="">Bairro: </label>
-        <h4 id="bairro"></h4>
-    </div>
+    <div id="app"></div>
 
+    <table class="table table-sucess table-striped">
+        <tbody>
+            <tr>
+                <th scope="row">id</th>
+                <td id="id"></td>
+            </tr>
+            <tr>
+                <th scope="row">nome</th>
+                <td id="nome"></td>
+            </tr>
+            <tr>
+                <th scope="row">email</th>
+                <td id="email"></td>
+            </tr>
+            <tr>
+                <th scope="row">senha</th>
+                <td id="senha"></td>
+            </tr>
+            <tr>
+                <th scope="row">nivel</th>
+                <td id="nivel"></td>
+            </tr>
+            <tr>
+                <th scope="row">data</th>
+                <td id="data"></td>
+            </tr>
+        </tbody>
+    </table>
 <!--Script pode ser feito dentro do head ou no final do body, mais geralmente é feito ao final do body-->
 <!--"new" comando para criar um objeto, um construtor-->
-    <script type="application/javascript"> 
-        var cep = document.getElementById('bairro')
+    <script type="application/javascript">
+        var id = document.getElementById('id');
+        var elApp = document.getElementById('app')
         function consultarCep(){
             var xhr = new XMLHttpRequest();  //instanciando um obj, criando
 
-            xhr.open('GET','algum link');  //xhr agora se torna um objeto com recursos e métodos
+            xhr.open('GET','https://www.barth.com.br/project2MJA/usuarios/verificarUsuario.php?email=admin@admin.com&senha=123');  //xhr agora se torna um objeto com recursos e métodos
             //essa linha abre uma requisição de algum serviço
             
             xhr.send(null);  //fica como null pq n vai enviar nada, só quer receber dados
@@ -29,7 +58,15 @@
             xhr.onreadystatechange = function(){ //criou uma função anônima
                 if(xhr.readyState === 4){ //readyState indica se a função esta ok, se conseguiu conexão
                     var res = JSON.parse(xhr.responseText); //resonseText indica se o texto está la dentro, "parse" serve para transformar o texto em um obj jason
-                    console.log(res);
+
+                    id.innerText = res.id
+                    nome.innerText = res.nome
+                    email.innerText = res.email
+                    senha.innerText = res.senha
+                    nivel.innerText = res.nivel
+                    data.innerText = res.data
+                    
+                    
                 }
 
             };  // onreadystatechange (estou pronto), esse método verifica se ouve alguma alteração de estado
